@@ -49,10 +49,16 @@ async function validateSignUp(req, res, next){
     }
 
     await userInstance.insert(newUserData)
-    return res.status(200).json({
-        authenticated: true,
-        user: newUserData,  
-        msj: "Usuario creado"
+
+    req.logIn(newUserData, (err) => {
+        if (err) {
+            return res.status(500).json({ authenticated: false, user: null, msj: "Login failed", errType: 4 });
+        }
+        return res.status(200).json({
+            authenticated: true,
+            user: newUserData,  
+            msj: "Usuario creado"
+        });
     });
 }
 
@@ -73,9 +79,8 @@ async function validateLogin(req, res, next){
     
     if(user.provider != "email") return res.status(401).json({authenticated: false, user: null, msj: "Cannot login with this provider", errType: 2})
 
-    // const isMatch = await bcrypt.compare(password, user.password);
-    // if(!isMatch) return res.status(401).json({authenticated: false, user: null, msj: "Invalid password", errType: 3})
-    if(user.password !== password) return res.status(401).json({authenticated: false, user: null, msj: "Invalid password", errType: 3})
+    const isMatch = await bcrypt.compare(password, user.password);
+    if(!isMatch) return res.status(401).json({authenticated: false, user: null, msj: "Invalid password", errType: 3})
 
     req.logIn(user, (err) => {
         if (err) {
