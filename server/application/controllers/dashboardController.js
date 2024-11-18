@@ -5,7 +5,6 @@ async function getBoards(req, res) {
     const dashboardInstance = new Dashboard();
 
     const data = await dashboardInstance.findByUserId(userId)
-    console.log(data)
 
     res.status(200).json(data)
 }
