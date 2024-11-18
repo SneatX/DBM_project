@@ -1,10 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const loginRouter = require('./loginRouter')
+const dashboardRouter = require('./dashboardRouter')
 
 
 //Manejo de rutas generales
 router.use("/login", loginRouter)
+
+router.use("/dashboard", dashboardRouter)
 
 
 //Rutas específicas del index
