@@ -1,5 +1,3 @@
-import { useEffect } from "react"
-
 export default function LoginBtn({ name, icon, color, validate }) {
 
     function validateWith(service) {
