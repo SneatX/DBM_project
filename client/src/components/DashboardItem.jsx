@@ -19,7 +19,7 @@ export default function DashboardItem({ data }) {
                 <p className="text-gray-600 text-sm">{data.description}</p>
             </div>
             <div className="flex items-center gap-2 text-gray-600">
-                <p>Fecha creación: {data.createdAt.toLocaleDateString()}</p>
+                <p>Fecha creación: {new Date(data.createdAt).toLocaleDateString()}</p>
                 <p>Prioridad: {priorityText[data.priority]}</p>
             </div>
         </div>
